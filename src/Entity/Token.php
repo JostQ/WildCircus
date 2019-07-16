@@ -26,6 +26,11 @@ class Token
      */
     private $isValid;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="token")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Token
     public function setIsValid(bool $isValid): self
     {
         $this->isValid = $isValid;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
