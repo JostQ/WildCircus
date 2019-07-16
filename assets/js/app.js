@@ -14,3 +14,15 @@ const $ = require('jquery');
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
 import 'bulma-fluent/bulma.sass';
+
+$(document).ready(function() {
+
+    // Check for click events on the navbar burger icon
+    $(".navbar-burger").click(function() {
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+
+    });
+});
