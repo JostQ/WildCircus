@@ -45,6 +45,21 @@ class User implements UserInterface
      */
     private $booking;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isSubscribe;
+
     public function __construct()
     {
         $this->token = new ArrayCollection();
@@ -187,6 +202,42 @@ class User implements UserInterface
                 $booking->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getIsSubscribe(): ?bool
+    {
+        return $this->isSubscribe;
+    }
+
+    public function setIsSubscribe(bool $isSubscribe): self
+    {
+        $this->isSubscribe = $isSubscribe;
 
         return $this;
     }
