@@ -3,6 +3,34 @@
 {% block title %}WildCircus{% endblock %}
 
 {% block body %}
+    <section class="hero is-dark is-medium">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                {% for media in company.media %}
+                    {% if media.type.name == 'logoCompany' %}
+                        <img src="{{ 'images/company/' ~ media.imgUrl }}" alt="">
+                    {% endif %}
+                {% endfor %}
+                <h1 class="title is-1">{{ company.name }}</h1>
+                <h2 class="subtitle is-4">{{ company.slogan }}</h2>
+            </div>
+        </div>
+    </section>
 
-    {{ dump(company) }}
+    <section class="section">
+        <div class="container is-multiline">
+            <h2 class="title is-12">What is the {{ company.name }} ?</h2>
+            <div class="content columns">
+                <img src="http://placekitten.com/g/300/150" class="image column is-12 is-5-desktop">
+
+                <div class="column is-12 is-7-desktop">{{ company.description }}</div>
+            </div>
+            <div class="content columns">
+                <div class="column is-12 is-7-desktop">{{ company.history }}</div>
+
+                <img src="http://placekitten.com/g/300/150" class="image column is-12 is-5-desktop">
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
