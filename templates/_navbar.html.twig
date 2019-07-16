@@ -13,10 +13,14 @@
             <a href="" class="navbar-item">Contact</a>
         </div>
         <div class="navbar-end">
-            <a href="" class="navbar-item">Login</a>
-            <a href="" class="navbar-item">Sign up</a>
-            <a href="" class="navbar-item">Logout</a>
-            <a href="" class="navbar-item">Booking</a>
+            {% if app.user %}
+                <a href="" class="navbar-item">Logout</a>
+                <a href="" class="navbar-item">Booking</a>
+            {% else %}
+                <a href="" class="navbar-item">Login</a>
+                <a href="" class="navbar-item">Sign up</a>
+            {% endif %}
+
         </div>
     </div>
 </nav>
