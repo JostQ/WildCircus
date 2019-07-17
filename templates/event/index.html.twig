@@ -3,18 +3,25 @@
 {% block title %}Hello EventController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/dremsis/workspace/checkpoint/wildcircus-checkpoint4/src/Controller/EventController.php'|file_link(0) }}">src/Controller/EventController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/dremsis/workspace/checkpoint/wildcircus-checkpoint4/templates/event/index.html.twig'|file_link(0) }}">templates/event/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <h2 class="title">List of events</h2>
+    <hr>
+    <div class="columns">
+        {% for event in events %}
+            <div class="column is-12 is-4-desktop">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            {% for media in event.media %}
+                                {% if media.type.name == 'cardEvent' %}
+                                    <img src="{{ asset('images/events/' ~ media.imgUrl) }}" alt="">
+                                {% endif %}
+                            {% endfor %}
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            No event right now !
+        {% endfor %}
+    </div>
 {% endblock %}
