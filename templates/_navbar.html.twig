@@ -1,6 +1,8 @@
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a href="{{ path('home_index') }}" class="navbar-item router-link-exact-active router-link-active">Coucou</a>
+        <a href="{{ path('home_index') }}" class="navbar-item router-link-exact-active router-link-active">
+            <img src="{{ asset('images/company/' ~ companyGlobal.logo.imgUrl) }}" alt="">
+        </a>
         <div class="navbar-burger burger" target="navbarObjects">
             <span></span><span></span><span></span>
         </div>
