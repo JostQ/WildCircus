@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+
+{% block landing %}
+    <section class="hero is-dark is-medium">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is-1">{{ event.name }}</h1>
+                {% for media in event.media %}
+                    {% if media.type.name == 'landingEvent' %}
+                        <img src="{{ asset('images/events/landing/' ~ media.imgUrl) }}" alt="landing event">
+                    {% endif %}
+                {% endfor %}
+                <h2>{{ event.date|date("d/m/Y") }}</h2>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body %}
+
+    <h2 class="title">{{ event.name }}</h2>
+
+    <div class="content columns is-multiline">
+        <div class="column is-12 is-7-desktop">
+            {{ event.description }}
+            <p>Date : {{ event.date|date('d/m/Y')}}</p>
+            <p>Price : {{ event.price }}€</p>
+            {% if app.user %}
+                {% if (event.date|date("d/m/Y") == "now"|date("d/m/Y")) or event.date|date("U") > "now"|date("U") %}
+                    {% include 'event/_form_book.html.twig' %}
+                {% endif %}
+            {% endif %}
+        </div>
+        {% for media in event.media %}
+            {% if media.type.name == 'landingEvent' %}
+                <img src="{{ asset('images/events/desc/' ~ media.imgUrl) }}" class="image column is-12 is-5-desktop" alt="description event">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

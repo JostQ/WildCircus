@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,18 +15,22 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index()
+    public function index(EventRepository $eventRepository)
     {
+        $events = $eventRepository->findAllOrderByDate();
+
         return $this->render('event/index.html.twig', [
-            'controller_name' => 'EventController',
+            'events' => $events
         ]);
     }
 
     /**
      * @Route("/{id}", name="show")
      */
-    public function show()
+    public function show(Event $event)
     {
-
+        return $this->render('event/show.html.twig', [
+            'event' => $event
+        ]);
     }
 }

@@ -1,0 +1,23 @@
+<div class="card">
+    {% for media in event.media %}
+        {% if media.type.name == 'cardEvent' %}
+            <div class="card-image card-done">
+                <figure class="image is-4by3 img-done">
+                    <img src="{{ asset('images/events/card/' ~ media.imgUrl) }}" alt="">
+                </figure>
+                <div class="text-done">
+                    Done
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="card-content">
+        <div class="heading">
+            {{ event.name }}
+        </div>
+        <div class="content">
+            <p>{{ event.description }}</p>
+            <time>{{ event.date|date("m/d/Y") }}</time>
+        </div>
+    </div>
+</div>

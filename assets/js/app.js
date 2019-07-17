@@ -11,8 +11,6 @@ require('../css/app.scss');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
-
 import 'bulma-fluent/bulma.sass';
 
 $(document).ready(function() {
@@ -33,5 +31,53 @@ $(document).ready(function() {
                 $notification.parentNode.removeChild($notification);
             });
         });
+    });
+
+    $('.booking-form').on('submit', function (e) {
+        e.preventDefault();
+
+        let data = new FormData();
+        data.append('eventId', this[0].value);
+
+        let req = new Request($(this).attr("action"), { method: $(this).attr("method"), body: data });
+
+        fetch(req)
+    });
+
+    $('.trash-cart').on('click', function (e) {
+        e.preventDefault();
+
+        let req = new Request(this.href, {method: 'DELETE'});
+        let id = this.href.split('/')[4];
+
+        fetch(req)
+            .then(function (response) {
+            })
+            .then(function (response) {
+                let row = $('.row-' + id);
+                let quantityColumn = $('.row-' + id + ' td:first-child')[0];
+                let quantity = quantityColumn.innerHTML - 1;
+
+                let priceColumn = $('.row-' + id + ' td:nth-child(3)')[0];
+                let price = priceColumn.attributes[0].value;
+                let thTotalPrice = $('.totalPrice');
+                let totalPrice = priceColumn.innerHTML.split('€')[0];
+
+                if (quantity === 0) {
+                    let tr = document.createElement('tr');
+                    let td = document.createElement('td');
+                    td.innerHTML = 'Nothing in your cart !';
+                    tr.append(td);
+                    let parent = row[0].parentNode;
+                    parent.insertBefore(tr, $('.tprice')[0]);
+                    row.remove();
+                    thTotalPrice[0].innerHTML = 'Total price : 0€';
+                }
+                quantityColumn.innerHTML = quantity;
+
+                totalPrice -= price;
+                priceColumn.innerHTML = totalPrice.toFixed(2) + '€';
+                thTotalPrice[0].innerHTML = 'Total price : ' + totalPrice.toFixed(2) + '€';
+            })
     });
 });
