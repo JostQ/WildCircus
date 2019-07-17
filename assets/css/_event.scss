@@ -1,0 +1,65 @@
+.event-card{
+  .card-a{
+    .card{
+      .card-content{
+        p{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .card-done{
+        background-color: #222222;
+        .img-done{
+          opacity: 0.1;
+        }
+        .text-done{
+          position: absolute;
+          text-align: center;
+          width: 20%;
+          font-size: 2rem;
+          font-weight: bolder;
+          color: #FFFFFF;
+          top: 40%;
+          left: 40%;
+        }
+      }
+
+      .card-now{
+        .text-now{
+          position: absolute;
+          text-align: center;
+          width: 40%;
+          font-size: 3rem;
+          font-weight: bolder;
+          color: #F5871F;
+          top: 35%;
+          left: 30%;
+        }
+      }
+
+      .card-book{
+        text-align: end;
+      }
+
+
+      &:hover{
+        .card-image{
+          background: none;
+          .img-done{
+            opacity: 1;
+          }
+          .text-done{
+            display: none;
+          }
+        }
+        .card-now{
+          .text-now{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

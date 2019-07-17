@@ -1,24 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EventController!{% endblock %}
+{% block title %}Wild Circus - Events List{% endblock %}
 
 {% block body %}
     <h2 class="title">List of events</h2>
     <hr>
-    <div class="columns">
+    <div class="columns is-multiline event-card">
         {% for event in events %}
             <div class="column is-12 is-4-desktop">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            {% for media in event.media %}
-                                {% if media.type.name == 'cardEvent' %}
-                                    <img src="{{ asset('images/events/' ~ media.imgUrl) }}" alt="">
-                                {% endif %}
-                            {% endfor %}
-                        </figure>
-                    </div>
-                </div>
+                <a href="{{ path('event_show', {'id' : event.id}) }}" class="card-a">
+                    {% if event.date|date("d/m/Y") == "now"|date("d/m/Y") %}
+                        {% include 'event/cards/now.html.twig' %}
+                    {% elseif event.date|date("U") < "now"|date("U") %}
+                        {% include 'event/cards/done.html.twig' %}
+                    {% else %}
+                        {% include 'event/cards/later.html.twig' %}
+                    {% endif %}
+                </a>
             </div>
         {% else %}
             No event right now !
