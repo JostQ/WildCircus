@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Form\SignUpType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -14,9 +19,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //    $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $this->redirectToRoute('home_index');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -37,8 +42,28 @@ class SecurityController extends AbstractController
     /**
      * @Route("/sign-up", name="app_sign_up")
      */
-    public function signUp()
+    public function signUp(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder)
     {
-        //TODO
+        $form = $this->createForm(SignUpType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $confirmPassword = $request->request->get('confirmPassword');
+            if ($user->getPassword() === $confirmPassword) {
+                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+                $user->setRoles(['ROLE_USER']);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'You can login now !');
+                return $this->redirectToRoute('app_login');
+            }
+            $this->addFlash('danger', 'Passwords don\'t match !');
+        }
+
+        return $this->render('security/signUp.html.twig', [
+           'form' => $form->createView(),
+        ]);
     }
 }

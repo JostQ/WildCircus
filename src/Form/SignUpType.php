@@ -2,14 +2,16 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContactType extends AbstractType
+class SignUpType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,14 +21,24 @@ class ContactType extends AbstractType
                     'class' => 'input'
                 ]
             ])
-            ->add('subject', TextType::class, [
+            ->add('password', PasswordType::class, [
                 'attr' => [
                     'class' => 'input'
                 ]
             ])
-            ->add('message',  TextareaType::class, [
+            ->add('firstname', TextType::class, [
                 'attr' => [
-                    'class' => 'textarea'
+                    'class' => 'input'
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [
+                    'class' => 'input'
+                ]
+            ])
+            ->add('isSubscribe', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'checkbox'
                 ],
                 'required' => false
             ])
@@ -37,7 +49,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => User::class,
         ]);
     }
 }
