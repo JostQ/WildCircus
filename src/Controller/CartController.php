@@ -41,7 +41,7 @@ class CartController extends AbstractController
     {
         $event = $eventRepository->find($request->request->get('eventId'));
 
-        if (empty($session->get('booking')[$event->getId()])) {
+        if (empty($session->get('booking'))) {
             $session->set('booking', [
                 $event->getId() => [
                     'event' => $event,
@@ -50,11 +50,18 @@ class CartController extends AbstractController
             ]);
         } else {
             $events = $session->get('booking');
-            $quantity = $events[$event->getId()]['quantity'] + 1;
-            $events[$event->getId()] = [
-                'event' => $event,
-                'quantity' => $quantity
-            ];
+            if (empty($events[$event->getId()])) {
+                $events[$event->getId()] = [
+                        'event' => $event,
+                        'quantity' => 1
+                ];
+            } else {
+                $quantity = $events[$event->getId()]['quantity'] + 1;
+                $events[$event->getId()] = [
+                    'event' => $event,
+                    'quantity' => $quantity
+                ];
+            }
             $session->set('booking', $events);
         }
 

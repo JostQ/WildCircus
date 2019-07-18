@@ -40,7 +40,7 @@ class BookingController extends AbstractController
     {
         $tickets = $session->get('booking');
 
-        if (empty($session->get('booking'))) {
+        if (empty($tickets)) {
             $this->addFlash('danger', 'Cart empty');
             return $this->redirectToRoute('cart_index');
         }
@@ -57,6 +57,8 @@ class BookingController extends AbstractController
         }
 
         $entityManager->flush();
+
+        $session->remove('booking');
 
         $mailer->sendMail($tickets, $this->getUser()->getEmail(), 'Order Confirmation', 'booking');
 
