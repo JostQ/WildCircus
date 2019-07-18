@@ -19,7 +19,7 @@
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.event.name }}</td>
                 <td data-price="{{ item.event.price }}">{{ item.event.price * item.quantity }}€</td>
-                <td><a href="{{ path("cart_delete", {'index': id}) }}" class="trash-cart"><i class="fas fa-trash"></i></a></td>
+                <td><a href="{{ path("cart_delete", {'index': id}) }}" class="trash-cart"><i class="fas fa-minus-square"></i></a></td>
             </tr>
         {% else %}
             <tr>
@@ -35,4 +35,8 @@
             <th class="totalPrice">Total price : {{ totalPrice }}€</th>
         </tr>
     </table>
+    <form action="{{ path('booking_add') }}" method="post" class="buy">
+        <button type="submit" class="button is-dark">Buy</button>
+    </form>
+
 {% endblock %}
