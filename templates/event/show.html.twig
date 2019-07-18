@@ -4,15 +4,17 @@
 
 
 {% block landing %}
-    <section class="hero is-dark is-medium">
+    <section class="hero is-dark is-medium" style="
+            background-image:
+            url('{% for media in event.media %}{% if media.type.name == 'landingEvent' %}{{ asset('images/events/landing/' ~ media.imgUrl) }}{% endif %}{% endfor %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            ">
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title is-1">{{ event.name }}</h1>
-                {% for media in event.media %}
-                    {% if media.type.name == 'landingEvent' %}
-                        <img src="{{ asset('images/events/landing/' ~ media.imgUrl) }}" alt="landing event">
-                    {% endif %}
-                {% endfor %}
+
                 <h2>{{ event.date|date("d/m/Y") }}</h2>
             </div>
         </div>
@@ -27,6 +29,7 @@
         <div class="column is-12 is-7-desktop">
             {{ event.description }}
             <p>Date : {{ event.date|date('d/m/Y')}}</p>
+            <p>Address : {{ event.address }}, {{ event.postal }} {{ event.city }}</p>
             <p>Price : {{ event.price }}€</p>
             {% if app.user %}
                 {% if (event.date|date("d/m/Y") == "now"|date("d/m/Y")) or event.date|date("U") > "now"|date("U") %}
