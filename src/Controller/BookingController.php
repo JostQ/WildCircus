@@ -27,8 +27,9 @@ class BookingController extends AbstractController
      */
     public function index()
     {
+        $bookings = $this->getUser()->getBooking();
         return $this->render('booking/index.html.twig', [
-            'controller_name' => 'BookingController',
+            'bookings' => $bookings
         ]);
     }
 
