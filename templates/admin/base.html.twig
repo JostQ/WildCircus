@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+
+
+        <section class="section">
+            <div class="container">
+                <br>
+                <div id="notifications">
+                    {% for category, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="notification is-{{ category }}">
+                                <button class="delete"></button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+                {% block body %}{% endblock %}
+            </div>
+        </section>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <script src="https://kit.fontawesome.com/e0feba9825.js"></script>
+        {% endblock %}
+    </body>
+</html>
