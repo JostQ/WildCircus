@@ -1,5 +1,10 @@
 .table{
   tbody{
+    .table-head{
+      th {
+        text-align: center;
+      }
+    }
     tr{
       td{
         text-align: center;

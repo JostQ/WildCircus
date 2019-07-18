@@ -6,7 +6,7 @@
 
     <h2 class="title">My Bookings</h2>
     <table class="table is-narrow is-fullwidth">
-        <tr>
+        <tr class="table-head">
             <th>Order</th>
             <th>Booking</th>
             <th>Quantity</th>
@@ -14,7 +14,7 @@
         </tr>
         {% for booking in bookings %}
             <tr>
-                <td>{{ booking.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ booking.event.name }}</td>
                 <td>{{ booking.quantity }}</td>
                 <td>{{ booking.event.price * booking.quantity }}€</td>
