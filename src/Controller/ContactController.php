@@ -24,7 +24,7 @@ class ContactController extends AbstractController
             $message = $form->getData();
             $subjectMail = 'Wild Circus - You contacted us !';
 
-            $mailer->sendMail($message, $message['email'], $subjectMail);
+            $mailer->sendMail($message, $message['email'], $subjectMail, 'contact');
 
             $this->addFlash('success', 'We get your message! Thank you !');
 

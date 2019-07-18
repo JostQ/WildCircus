@@ -21,14 +21,14 @@ class Mailer
         $this->sender = $sender;
         $this->twig = $twig;
     }
-    public function sendMail($message, $recipient, $subject)
+    public function sendMail($message, $recipient, $subject, $repo)
     {
         $message = (new \Swift_Message())
             ->setFrom($this->sender)
             ->setTo($recipient)
             ->setSubject($subject)
             ->setBody($this->twig->render(
-                'contact/mailer/mail.html.twig',
+                $repo . '/mailer/mail.html.twig',
                 [
                     'company' => $this->company,
                     'recipient' => $recipient,

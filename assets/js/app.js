@@ -41,7 +41,11 @@ $(document).ready(function() {
 
         let req = new Request($(this).attr("action"), { method: $(this).attr("method"), body: data });
 
-        fetch(req)
+        fetch(req).then().then(
+            function () {
+                notificationCreate('success', 'You added a ticket to your cart !');
+            }
+        )
     });
 
     $('.trash-cart').on('click', function (e) {
@@ -51,8 +55,7 @@ $(document).ready(function() {
         let id = this.href.split('/')[4];
 
         fetch(req)
-            .then(function (response) {
-            })
+            .then()
             .then(function (response) {
                 let row = $('.row-' + id);
                 let quantityColumn = $('.row-' + id + ' td:first-child')[0];
@@ -62,6 +65,12 @@ $(document).ready(function() {
                 let price = priceColumn.attributes[0].value;
                 let thTotalPrice = $('.totalPrice');
                 let totalPrice = priceColumn.innerHTML.split('€')[0];
+
+                quantityColumn.innerHTML = quantity;
+
+                totalPrice -= price;
+                priceColumn.innerHTML = totalPrice.toFixed(2) + '€';
+                thTotalPrice[0].innerHTML = 'Total price : ' + totalPrice.toFixed(2) + '€';
 
                 if (quantity === 0) {
                     let tr = document.createElement('tr');
@@ -73,11 +82,25 @@ $(document).ready(function() {
                     row.remove();
                     thTotalPrice[0].innerHTML = 'Total price : 0€';
                 }
-                quantityColumn.innerHTML = quantity;
-
-                totalPrice -= price;
-                priceColumn.innerHTML = totalPrice.toFixed(2) + '€';
-                thTotalPrice[0].innerHTML = 'Total price : ' + totalPrice.toFixed(2) + '€';
+                notificationCreate('danger', 'You removed a ticket !');
             })
     });
+
+    const notificationCreate = (type, message) => {
+
+        let notificationsDiv = $('#notifications');
+        let notificationDiv = $('.notification');
+        if (notificationDiv.length !== 0) {
+            notificationDiv[0].parentNode.removeChild(notificationDiv[0]);
+        }
+
+        let notification = document.createElement('div');
+        notification.className = 'notification is-' + type;
+        let buttonClose = document.createElement('div');
+        buttonClose.className = 'delete';
+        notification.append(buttonClose);
+        notification.innerHTML = message;
+
+        notificationsDiv.append(notification);
+    }
 });

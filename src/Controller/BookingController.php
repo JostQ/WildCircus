@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -28,5 +30,37 @@ class BookingController extends AbstractController
         return $this->render('booking/index.html.twig', [
             'controller_name' => 'BookingController',
         ]);
+    }
+
+    /**
+     * @Route("/add", name="add", methods={"POST"})
+     */
+    public function add(Session $session, EventRepository $eventRepository, EntityManagerInterface $entityManager, Mailer $mailer)
+    {
+        $tickets = $session->get('booking');
+
+        if (empty($session->get('booking'))) {
+            $this->addFlash('danger', 'Cart empty');
+            return $this->redirectToRoute('cart_index');
+        }
+
+        foreach ($tickets as $key => $ticket) {
+            $booking = new Booking();
+            $event = $eventRepository->find((int)$key);
+
+            $booking->setQuantity($ticket['quantity']);
+            $booking->setEvent($event);
+            $booking->setUser($this->getUser());
+
+            $entityManager->persist($booking);
+        }
+
+        $entityManager->flush();
+
+        $mailer->sendMail($tickets, $this->getUser()->getEmail(), 'Order Confirmation', 'booking');
+
+        $this->addFlash('success', 'You validated your cart !');
+
+        return $this->redirectToRoute('booking_index');
     }
 }
