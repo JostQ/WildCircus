@@ -3,9 +3,10 @@
 {% block title %}{{ parent() }} - Admin Add Event{% endblock %}
 
 {% block body %}
-    <h1>Create new Event</h1>
+    <h2  class="title">Create new Event</h2>
+    <hr>
 
     {{ include('admin/event/_form.html.twig') }}
 
-    <a href="{{ path('admin_event_index') }}">back to list</a>
+    <a href="{{ path('admin_event_index') }}" class="button is-dark">Back to list</a>
 {% endblock %}
