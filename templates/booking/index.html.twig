@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookingController!{% endblock %}
+
+{% block body %}
+
+    <h2 class="title">My Bookings</h2>
+    <table class="table is-narrow is-fullwidth">
+        <tr class="table-head">
+            <th>Order</th>
+            <th>Booking</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        {% for booking in bookings %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ booking.event.name }}</td>
+                <td>{{ booking.quantity }}</td>
+                <td>{{ booking.event.price * booking.quantity }}€</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>No Booking</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

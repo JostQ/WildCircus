@@ -1,0 +1,15 @@
+.forms{
+  .box {
+    border: solid rgba(9, 38, 66, 0.3) 1px;
+    .buttonSubmit{
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .forms{
+    position: absolute;
+    left: 16.666665%;
+  }
+}

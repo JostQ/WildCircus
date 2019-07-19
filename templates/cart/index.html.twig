@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Circus - Your cart{% endblock %}
+
+{% block body %}
+
+    <h2 class="title">Your Cart</h2>
+    <hr>
+
+    <table class="table is-narrow is-fullwidth">
+        <tr class="table-head">
+            <th>Quantity</th>
+            <th>Event</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        {% for id, item in items %}
+            <tr class="cart row-{{ id }}">
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.event.name }}</td>
+                <td data-price="{{ item.event.price }}">{{ item.event.price * item.quantity }}€</td>
+                <td><a href="{{ path("cart_delete", {'index': id}) }}" class="trash-cart"><i class="fas fa-minus-square"></i></a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>Nothing in your cart !</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        <tr class="tprice">
+            <th></th>
+            <th></th>
+            <th class="totalPrice">Total price : {{ totalPrice }}€</th>
+        </tr>
+    </table>
+    <form action="{{ path('booking_add') }}" method="post" class="buy">
+        <button type="submit" class="button is-dark">Buy</button>
+    </form>
+
+{% endblock %}

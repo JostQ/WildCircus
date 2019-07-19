@@ -1,0 +1,39 @@
+<div class="card">
+    {% for media in event.media %}
+        {% if media.type.name == 'cardEvent' %}
+            <div class="card-image card-now">
+                <figure class="image is-4by3">
+                    <img src="{{ asset('images/events/card/' ~ media.imgUrl) }}" alt="">
+                </figure>
+                <div class="text-now">
+                    Now
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="card-image card-now">
+            <figure class="image is-4by3">
+                <img src="https://via.placeholder.com/800x600" alt="">
+            </figure>
+            <div class="text-now">
+                Now
+            </div>
+        </div>
+    {% endfor %}
+    <div class="card-content">
+        <div class="heading">
+            {{ event.name }}
+        </div>
+        <div class="content">
+            <p>{{ event.description }}</p>
+            <time class="column is-6">{{ event.date|date("m/d/Y") }}</time>
+            <div class="column is-6 card-book">
+                {% if app.user %}
+                    {% if (event.date|date("d/m/Y") == "now"|date("d/m/Y")) or event.date|date("U") > "now"|date("U") %}
+                        {% include 'event/_form_book.html.twig' %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
