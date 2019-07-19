@@ -15,7 +15,7 @@
             <th></th>
         </tr>
         {% for id, item in items %}
-            <tr class="row-{{ id }}">
+            <tr class="cart row-{{ id }}">
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.event.name }}</td>
                 <td data-price="{{ item.event.price }}">{{ item.event.price * item.quantity }}€</td>
