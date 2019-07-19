@@ -53,4 +53,9 @@ $ php bin/console s:r
 
 ## Congratulation !
 
+## Sources
+Backlog : https://image.noelshack.com/fichiers/2019/29/5/1563540819-pb.jpg
+Mock-up : https://image.noelshack.com/fichiers/2019/29/5/1563540812-maquette.jpg
+DB : https://image.noelshack.com/fichiers/2019/29/5/1563540818-model-db.jpg
+
 ![](https://image.noelshack.com/fichiers/2019/29/5/1563542557-logo-200x200.png)
