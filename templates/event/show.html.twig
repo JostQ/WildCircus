@@ -6,7 +6,7 @@
 {% block landing %}
     <section class="hero is-dark is-medium" style="
             background-image:
-            url('{% for media in event.media %}{% if media.type.name == 'landingEvent' %}{{ asset('images/events/landing/' ~ media.imgUrl) }}{% endif %}{% endfor %}');
+            url('{% for media in event.media %}{% if media.type.name == 'landingEvent' %}{{ asset('images/events/landing/' ~ media.imgUrl) }}{% endif %} {% else %} https://via.placeholder.com/1024x768{% endfor %}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -41,6 +41,8 @@
             {% if media.type.name == 'landingEvent' %}
                 <img src="{{ asset('images/events/desc/' ~ media.imgUrl) }}" class="image column is-12 is-5-desktop" alt="description event">
             {% endif %}
+        {% else %}
+            <img src="https://via.placeholder.com/800x600" class="image column is-12 is-5-desktop" alt="description event">
         {% endfor %}
     </div>
 

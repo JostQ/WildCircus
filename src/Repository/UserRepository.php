@@ -19,6 +19,14 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function findUsersSubscribed()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.isSubscribe = true')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
+use App\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +32,7 @@ class EventController extends AbstractController
     /**
      * @Route("/new", name="event_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserRepository $userRepository, Mailer $mailer): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
@@ -42,6 +44,12 @@ class EventController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Event added !');
+
+            $users = $userRepository->findUsersSubscribed();
+
+            foreach ($users as $user){
+                $mailer->sendMail($event, $user->getEmail(), 'New article added !', 'admin/event');
+            }
 
             return $this->redirectToRoute('admin_event_index');
         }
