@@ -53,4 +53,4 @@ $ php bin/console s:r
 
 ## Congratulation !
 
-![](https://www.noelshack.com/2019-29-5-1563542557-logo-200x200.png)
+![](https://image.noelshack.com/fichiers/2019/29/5/1563542557-logo-200x200.png)
