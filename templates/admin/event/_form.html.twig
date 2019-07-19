@@ -1,4 +1,60 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="column is-12 is-8-desktop forms">
+    <div class="box form-box">
+        {{ form_start(form) }}
+        <div class="field">
+            {{ form_label(form.name, "Name", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        <div class="field">
+            {{ form_label(form.address, "Adress", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.address) }}
+                {{ form_widget(form.address) }}
+            </div>
+        </div>
+        <div class="field">
+            {{ form_label(form.postal, "Postcode", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.postal) }}
+                {{ form_widget(form.postal) }}
+            </div>
+        </div>
+        <div class="field">
+            {{ form_label(form.city, "City", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.city) }}
+                {{ form_widget(form.city) }}
+            </div>
+        </div>
+        <div class="field">
+            {{ form_label(form.price, "Price", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.price) }}
+                {{ form_widget(form.price) }}
+            </div>
+        </div>
+        <div class="field">
+            {{ form_label(form.date, "Date", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.date) }}
+                {{ form_widget(form.date) }}
+            </div>
+        </div>
+        <div class="field">
+            {{ form_label(form.description, "Description", {'attr' : {'class' : 'label'}}) }}
+            <div class="control">
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="control buttonSubmit">
+                {{ form_row(form.submit, {'label' : 'Save', 'attr' : {'class': 'button is-primary'}}) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Event index{% endblock %}
+{% block title %}{{ parent() }} - Admin Events List{% endblock %}
 
 {% block body %}
     <h1>Event index</h1>
@@ -31,8 +31,8 @@
                 <td>{{ event.city }}</td>
                 <td>{{ event.postal }}</td>
                 <td>
-                    <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+                    <a href="{{ path('admin_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('event_new') }}">Create new</a>
+    <a href="{{ path('admin_event_new') }}">Create new</a>
 {% endblock %}

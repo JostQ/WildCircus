@@ -11,6 +11,9 @@
     <div id="navbarObjects" class="navbar-menu">
         <div class="navbar-start">
             <a href="{{ path('home_index') }}" class="navbar-item">Home</a>
+            {% if app.user %}
+                <a href="{{ path('admin_index') }}" class="navbar-item">Admin</a>
+            {% endif %}
             <a href="{{ path('event_index') }}" class="navbar-item"><span>Events</span></a>
             <a href="{{ path('contact_index') }}" class="navbar-item">Contact</a>
         </div>

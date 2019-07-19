@@ -13,6 +13,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "bulma": "^0.7.5",
+        "bulma-calendar": "^6.0.7",
         "bulma-fluent": "^0.3.17",
         "jquery": "^3.4.1",
         "node-sass": "^4.12.0",
