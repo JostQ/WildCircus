@@ -3,9 +3,12 @@
 {% block title %}{{ parent() }} - Admin Events List{% endblock %}
 
 {% block body %}
-    <h1>Event index</h1>
+    <h2 class="title">Event index</h2>
+    <hr>
 
-    <table class="table">
+    <a href="{{ path('admin_event_new') }}" class="button is-dark">Create new</a>
+
+    <table class="table is-narrow is-fullwidth">
         <thead>
             <tr>
                 <th>Id</th>
@@ -31,8 +34,8 @@
                 <td>{{ event.city }}</td>
                 <td>{{ event.postal }}</td>
                 <td>
-                    <a href="{{ path('admin_event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}">edit</a>
+                    <a href="{{ path('admin_event_show', {'id': event.id}) }}" class="button is-dark"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}" class="button is-dark"><i class="fas fa-pen"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +46,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_event_new') }}">Create new</a>
 {% endblock %}
